@@ -1,55 +1,70 @@
-import { useEffect } from "react";
 import "@/App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import axios from "axios";
-import { HOME } from "@/constants/testIds";
+import { Toaster } from "@/components/ui/sonner";
+import { AuthProvider } from "@/context/AuthContext";
+import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
+import { ProtectedRoute } from "@/components/ProtectedRoute";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
+import Home from "@/pages/Home";
+import Results from "@/pages/Results";
+import ClubDetail from "@/pages/ClubDetail";
+import Login from "@/pages/Login";
+import Register from "@/pages/Register";
+import ClubDashboard from "@/pages/ClubDashboard";
+import AdminPanel from "@/pages/AdminPanel";
+import MyEnrollments from "@/pages/MyEnrollments";
 
-const Home = () => {
-  const helloWorldApi = async () => {
-    try {
-      const response = await axios.get(`${API}/`);
-      console.log(response.data.message);
-    } catch (e) {
-      console.error(e, `errored out requesting / api`);
-    }
-  };
-
-  useEffect(() => {
-    helloWorldApi();
-  }, []);
-
+function Shell({ children }) {
   return (
-    <div>
-      <header className="App-header">
-        <a
-          data-testid={HOME.emergentLink}
-          className="App-link"
-          href="https://emergent.sh"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="https://avatars.githubusercontent.com/in/1201222?s=120&u=2686cf91179bbafbc7a71bfbc43004cf9ae1acea&v=4" />
-        </a>
-        <p className="mt-5">Building something incredible ~!</p>
-      </header>
+    <div className="App flex min-h-screen flex-col">
+      <Navbar />
+      <main className="flex-1">{children}</main>
+      <Footer />
     </div>
   );
-};
+}
 
 function App() {
   return (
-    <div className="App">
+    <AuthProvider>
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />}>
-            <Route index element={<Home />} />
-          </Route>
-        </Routes>
+        <Shell>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/clubs" element={<Results />} />
+            <Route path="/clubs/:id" element={<ClubDetail />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route
+              path="/mes-inscriptions"
+              element={
+                <ProtectedRoute roles={["participant", "club", "admin"]}>
+                  <MyEnrollments />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/espace-club"
+              element={
+                <ProtectedRoute roles={["club", "admin"]}>
+                  <ClubDashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin"
+              element={
+                <ProtectedRoute roles={["admin"]}>
+                  <AdminPanel />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </Shell>
+        <Toaster position="top-center" richColors />
       </BrowserRouter>
-    </div>
+    </AuthProvider>
   );
 }
 
