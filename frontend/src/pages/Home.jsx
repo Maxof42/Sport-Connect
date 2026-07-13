@@ -22,8 +22,10 @@ export default function Home() {
   useEffect(() => {
     api.get("/sports").then(({ data }) => {
       setSports(data.slice(0, 10));
-      const total = data.reduce((a, b) => a + b.count, 0);
-      setStats({ clubs: total, sports: data.length });
+      setStats((s) => ({ ...s, sports: data.length }));
+    }).catch(() => {});
+    api.get("/clubs", { params: { limit: 1 } }).then(({ data }) => {
+      setStats((s) => ({ ...s, clubs: data.total }));
     }).catch(() => {});
   }, []);
 

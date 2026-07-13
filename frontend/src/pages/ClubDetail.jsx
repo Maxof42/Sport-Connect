@@ -12,7 +12,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Separator } from "@/components/ui/separator";
 import {
-  Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter,
+  Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter, DialogDescription,
 } from "@/components/ui/dialog";
 import { toast } from "sonner";
 import {
@@ -162,6 +162,7 @@ export default function ClubDetail() {
                       <form onSubmit={enroll}>
                         <DialogHeader>
                           <DialogTitle className="font-heading">Inscription · {club.name}</DialogTitle>
+                          <DialogDescription>Renseignez le participant puis reglez la cotisation en ligne (paiement demo).</DialogDescription>
                         </DialogHeader>
                         <div className="mt-4 space-y-3">
                           <div>
