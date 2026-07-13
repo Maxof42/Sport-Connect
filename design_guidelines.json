@@ -1,0 +1,69 @@
+{
+  "theme_strategy": "Light mode primary for trust and clarity (Doctolib inspiration), infused with deep contrast and a kinetic accent to assert a strong sports identity.",
+  "typography": {
+    "headings": "Cabinet Grotesk (Expressive, athletic, modern). DO NOT use Inter or standard sans for headings. Use font-black or font-light for contrast.",
+    "body": "Satoshi or IBM Plex Sans for ultra-clear readability, data density, and a reassuring feel.",
+    "rules": "H1 max text-5xl/6xl. Tight letter spacing for headings (tracking-tight). Overlines/Labels must be Uppercase + Wide Spacing (tracking-[0.2em])."
+  },
+  "colors": {
+    "archetype": "Hybrid: The Performance Pro + Organic Trust",
+    "base": "Bone White (#FAFAFA) and Pure White (#FFFFFF) to keep the 'Doctolib' cleanliness.",
+    "primary": "Deep Obsidian (#0A0A0A) for structural hierarchy and high-contrast trust.",
+    "accent": "Electric Blaze Orange (#FF4D00) or Volt Blue (#0055FF) for CTAs, kinetic energy, and active states.",
+    "rules": "No pure black or pure grey. Always tint greys slightly. Use APCA contrast. Interactive states must explicitly define hover text colors."
+  },
+  "layouts": {
+    "public_site": "Generous spacing (p-8 to p-12). Asymmetry in the hero section to break the generic mold. Cards with subtle roundness (max 8px). The map should be a prominent visual element alongside the results.",
+    "back_office": "High Density Grid (Bento style). Tight gaps (gap-4). Every pixel utilized for club managers. Data correlation is key.",
+    "components": "Go flat and rectangular. Avoid heavy drop shadows; prefer 1px solid strokes (border-border/40) or subtle inner borders for definition.",
+    "forms": "Use Shadcn forms. Custom styling for the 3-field search (Sport, Age, Zip Code 31xxx) to make it the hero centerpiece."
+  },
+  "visual_enhancers": {
+    "surfaces": "Use Solid Backgrounds with hard borders. No muddy glassmorphism for health/sports data to ensure absolute clarity.",
+    "motion": "Use Lenis for smooth scrolling on the public site. Apply micro-interactions (e.g., hover: -translate-y-1, subtle scale) for cards and buttons.",
+    "icons": "lucide-react for sharp, consistent UI. NO EMOJIS."
+  },
+  "images": {
+    "hero_and_cards": [
+      {
+        "url": "https://images.unsplash.com/photo-1761941210086-d44de26a4efd?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzNTl8MHwxfHNlYXJjaHwxfHxydW5uaW5nJTIwdHJhY2slMjB0b3AlMjB2aWV3fGVufDB8fHx8MTc4MzkzMDQwN3ww&ixlib=rb-4.1.0&q=85",
+        "category": "Hero / Map Context",
+        "description": "Aerial view running track - Good for subtle hero overlay or map context background."
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1545809074-59472b3f5ecc?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA3MDR8MHwxfHNlYXJjaHw0fHxzcG9ydHMlMjBjbHViJTIwdGVubmlzfGVufDB8fHx8MTc4MzkzMDQwN3ww&ixlib=rb-4.1.0&q=85",
+        "category": "Club Result Card",
+        "description": "Woman holding tennis racket - Use for individual sports club card."
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1610736342165-4eeb4aef66ca?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzF8MHwxfHNlYXJjaHw0fHxzb2NjZXIlMjBnYW1lJTIwa2lkc3xlbnwwfHx8fDE3ODM5MzA0MDd8MA&ixlib=rb-4.1.0&q=85",
+        "category": "Club Result Card",
+        "description": "Boy playing soccer - Use for kids/team sports club card."
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1602105320811-f504e5ff5011?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxNzV8MHwxfHNlYXJjaHwzfHxiYXNrZXRiYWxsJTIwdHJhaW5pbmclMjBneW18ZW58MHx8fHwxNzgzOTMwNDA2fDA&ixlib=rb-4.1.0&q=85",
+        "category": "Club Result Card",
+        "description": "Basketball training - Use for adult/indoor sports club card."
+      }
+    ]
+  },
+  "instructions_to_main_agent": [
+    "Public Site: Build a highly visible hero search with 3 fields (sport dropdown, age range, zip code locked to 31xxx) and a 'Faire du sport' CTA.",
+    "Public Site Results: Implement a dual-view or split-screen for Club Cards and an Interactive Map (centered on Haute-Garonne, 31). Use mock markers if real coordinates aren't mapped.",
+    "Club Detail Page: Needs clear badges (ouvert/fermé/bientôt), price, slots, and an online registration/payment form.",
+    "Back-Office: Create a dense, data-rich dashboard for club managers. Include tabs/sections for info, slots, members, and subscriptions.",
+    "Auth & Routing: Implement JWT auth structures for both public participants and club managers. Differentiate the layouts.",
+    "Components: Deeply customize Shadcn UI components. Strip away the generic soft 'Vercel' look. Make buttons pill-shaped or sharp with athletic contrast.",
+    "Do NOT apply universal transitions (e.g., transition: all). Add explicit transitions to properties like transform, background-color.",
+    "Ensure testability: apply `data-testid` to ALL interactive and key elements using kebab-case role-based naming."
+  ],
+  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
+    "Break the 'AI slop' aesthetic. Do NOT build generic centered layouts, simplistic gradients, and uniform styling.",
+    "You MUST NOT center align the app container (.App { text-align: center; } is banned).",
+    "Use 2-3x more spacing than typical for the public site to create a premium, reassuring feel.",
+    "Every interaction needs micro-animations - hover states, transitions, entrance animations. Static = dead.",
+    "Use 'sonner' for toasts.",
+    "NEVER use emojis for icons.",
+    "Ensure contrast compliance and explicit hover states (e.g., hover:bg-slate-900 hover:text-white)."
+  ]
+}
