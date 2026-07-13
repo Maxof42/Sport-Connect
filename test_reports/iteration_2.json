@@ -1,0 +1,42 @@
+{
+  "summary": "Verified the fix (data source switched from Data-ES equipements to annuaire-entreprises SIRENE NAF 93.12Z). All 41 backend pytest tests PASS (35 existing regression + 6 new fix-verification). Frontend flows verified end-to-end: home search (Rugby + 31000 -> 4 real Rugby clubs), club detail + enroll dialog with MOCK payment confirmation toast + dialog, club login (club@sportconnect.fr) -> Espace Club listing 30 real active clubs with tabs Infos/Inscriptions/Recues/Abonnement/Communication, admin login (admin@sportconnect.fr) -> stats (2604 clubs, 32 actives, 3 inscriptions, 0 revendications) + claims history, RBAC OK (unauth /admin and /espace-club both redirect to /login).",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "Home hero stats", "issues": ["'2604 clubs referencies' stat currently uses unique clubs total (correct now — matches DB total). '36 disciplines' correct. Nothing to fix."]},
+      {"screen": "ClubDetail enroll dialog", "issues": ["Radix a11y warning 'Missing Description or aria-describedby on DialogContent' still present (leftover from iteration 1)."]}
+    ]
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_sportconnect.py",
+    "/app/backend/tests/test_sirene_fix.py",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [
+    "(Optional) Add DialogDescription inside enroll DialogContent to silence Radix a11y warning.",
+    "(Optional) Replace deprecated @app.on_event('startup') with FastAPI lifespan context manager."
+  ],
+  "critical_code_review_comments": [
+    "Fix correctly applied: import_data.py now uses https://recherche-entreprises.api.gouv.fr/search with NAF 93.12Z + departement=31, storing SIREN as id and coords from matching_etablissements.",
+    "club_public() strips MongoDB _id; SIREN ids (9-digit) never expose ObjectId.",
+    "Sample /api/clubs (limit=100) shows real associations (Amicale Toec Toac Fct Feminin, Arts Martiaux Portet, Ass Cavaliers Et Ecole Equitation Luchon, Aviron Energie, Rugbygolf Toulousain, etc.) - NO more equipements publics.",
+    "1235 'Multisports' fallback clubs = ~47% of dataset (documented and accepted per problem statement).",
+    "seed_demo uses $setOnInsert for the club owner user - password remains as originally set (Club31!); if admin ever changes it in code it would NOT propagate. Consider upsert with $set for password_hash for symmetry with seed_admin.",
+    "server.py still ~530 lines - consider splitting when adding features."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_sirene_fix.py (new - verifies fix)"
+  ],
+  "success_rate": {"backend": "100% (41/41)", "frontend": "100% (all critical flows)"},
+  "test_credentials": "Admin: admin@sportconnect.fr / Admin31! ; Club: club@sportconnect.fr / Club31! (both work; club owns 30 real active SIRENE clubs).",
+  "seed_data_creation": "Enrollment created on 'Amicale Toec Toac Fct Feminin' (test_auto_{ts}@example.com); pytest suite also creates TEST_ prefixed users/enrollments/claims each run.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Dataset: 2604 real SIRENE clubs (NAF 93.12Z, dep 31); 32 active (owner=club@sportconnect.fr, includes ~30 demo + any approved via claim); 2573 ghost; 36 distinct disciplines (top: Multisports 1235, Arts martiaux 200, Petanque 147, Football 116, Tennis 96, Rugby 91). SIREN 9-digit IDs. Cookies samesite=none secure -> must use HTTPS preview URL. Mocks Stripe/e-mail intentional per spec. All flows exercised: search, enroll (mock paid), auth JWT cookie, club dashboard, admin stats/claims, RBAC. New test file test_sirene_fix.py can be re-run to prove the fix on any future imports.",
+  "rca of the issue": "N/A - fix is applied correctly and verified. Prior issue (equipements returned instead of clubs) resolved by switching import source to SIRENE NAF 93.12Z via recherche-entreprises.api.gouv.fr."
+}

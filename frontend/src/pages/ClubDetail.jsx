@@ -107,7 +107,7 @@ export default function ClubDetail() {
         <div>
           <h2 className="font-heading text-xl font-bold">A propos</h2>
           <p className="mt-3 text-muted-foreground">
-            {club.description || "Ce club n'a pas encore complete sa presentation. Les informations proviennent de l'open data des equipements sportifs."}
+            {club.description || "Ce club n'a pas encore complete sa presentation. Les informations proviennent de l'annuaire officiel des associations sportives (SIRENE)."}
           </p>
           {club.equip_types?.length > 0 && (
             <div className="mt-5">

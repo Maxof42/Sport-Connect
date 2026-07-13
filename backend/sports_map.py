@@ -1,36 +1,45 @@
-"""Mapping des types d'equipements Data-ES vers des sports / federations."""
+"""Mapping du nom / adresse d'un club vers un sport (discipline)."""
 
 # Ordre important: le premier motif trouve gagne.
 KEYWORD_TO_SPORT = [
-    (("tennis de table", "ping"), "Tennis de table"),
-    (("court de tennis", "tennis"), "Tennis"),
-    (("football", "foot"), "Football"),
-    (("rugby",), "Rugby"),
-    (("basket",), "Basketball"),
-    (("handball", "hand "), "Handball"),
-    (("volley",), "Volley-ball"),
-    (("badminton",), "Badminton"),
+    (("tennis de table", "ping pong", "tennis table"), "Tennis de table"),
+    (("padel",), "Padel"),
+    (("tennis",), "Tennis"),
+    (("football", "foot ", "f.c", "fc ", " fc", "futsal"), "Football"),
+    (("rugby", "ovalie", "xiii", "xv "), "Rugby"),
+    (("basket", "b.c", "bc "), "Basketball"),
+    (("handball", "hand ", "hbc", "h.b.c"), "Handball"),
+    (("volley", "beach volley"), "Volley-ball"),
+    (("badminton", "bad "), "Badminton"),
     (("squash",), "Squash"),
-    (("bassin", "piscine", "natation", "nage"), "Natation"),
-    (("athletisme", "piste d'athle", "aire de lancer", "aire de saut"), "Athletisme"),
-    (("boulodrome", "petanque", "jeu de boules", "boules"), "Petanque"),
-    (("equestre", "manege", "carriere", "equitation", "hippodrome"), "Equitation"),
-    (("golf", "practice"), "Golf"),
-    (("skate", "roller", "bmx"), "Skate / Roller"),
-    (("escalade", "sae", "mur d'escalade", "bloc"), "Escalade"),
-    (("danse",), "Danse"),
-    (("dojo", "arts martiaux", "judo", "karate", "boxe", "lutte"), "Arts martiaux"),
-    (("musculation", "salle de forme", "fitness", "cardio"), "Fitness / Musculation"),
-    (("cyclisme", "velodrome", "piste cyclable", "vtt"), "Cyclisme"),
-    (("tir a l'arc", "pas de tir", "stand de tir", "tir sportif"), "Tir"),
-    (("aviron", "nautique", "voile", "canoe", "kayak", "plan d'eau"), "Sports nautiques"),
-    (("patinoire", "patinage", "glace"), "Patinage"),
-    (("pelote", "fronton", "trinquet"), "Pelote basque"),
+    (("natation", "nautique aqua", "aquatique", "swimming", "nageurs"), "Natation"),
+    (("plongee", "subaquatique", "sous-marin"), "Plongee"),
+    (("aviron", "canoe", "kayak", "voile", "nautique"), "Sports nautiques"),
+    (("athletisme", "athletic", "courir", "coureurs", "marathon", "trail"), "Athletisme"),
+    (("petanque", "boule", "quilles", "jeu de boule"), "Petanque"),
+    (("equestre", "equitation", "cheval", "poney", "hippique", "attelage"), "Equitation"),
+    (("golf",), "Golf"),
+    (("skate", "roller", "bmx", "trottinette"), "Skate / Roller"),
+    (("escalade", "grimpe", "montagne", "alpin club", "alpinisme"), "Escalade"),
+    (("danse", "dance", "twirling", "majorette", "country"), "Danse"),
+    (("judo", "karate", "taekwondo", "aikido", "kung fu", "wushu", "boxe", "lutte",
+      "arts martiaux", "jiu", "ju-jitsu", "jujitsu", "krav", "viet vo", "sambo",
+      "kick", "muay", "mma", "self defense", "kendo", "capoeira"), "Arts martiaux"),
+    (("musculation", "fitness", "forme", "cross training", "crossfit", "haltero", "powerlifting"), "Fitness / Musculation"),
+    (("cyclisme", "cyclo", "velo", "cycliste", "vtt", "bicross"), "Cyclisme"),
+    (("tir a l'arc", "archers", "compagnie d'arc", "arc "), "Tir a l'arc"),
+    (("tir sportif", "ball trap", "tir "), "Tir"),
+    (("patinage", "patineurs", "glace", "hockey glace"), "Patinage"),
+    (("pelote", "fronton", "trinquet", "cesta"), "Pelote basque"),
     (("baseball", "softball"), "Baseball"),
     (("hockey",), "Hockey"),
-    (("gymnase", "salle multisport", "multisports", "salle omnisport"), "Multisports"),
-    (("gymnastique", "trampoline"), "Gymnastique"),
-    (("terrain de grands jeux", "stade", "plateau eps"), "Multisports"),
+    (("gymnastique", "gym ", "gymnique", "trampoline", "acrosport"), "Gymnastique"),
+    (("randonnee", "rando", "marcheurs", "pedestre"), "Randonnee"),
+    (("yoga", "tai chi", "qi gong", "pilates"), "Yoga & bien-etre"),
+    (("echecs",), "Echecs"),
+    (("escrime",), "Escrime"),
+    (("triathlon", "duathlon"), "Triathlon"),
+    (("omnisport", "multisport", "amicale laique", "patronage", "sports pour tous"), "Multisports"),
 ]
 
 
@@ -40,4 +49,4 @@ def map_sport(*texts: str) -> str:
         for kw in keywords:
             if kw in blob:
                 return sport
-    return "Autres sports"
+    return "Multisports"

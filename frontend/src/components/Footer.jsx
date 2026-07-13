@@ -37,7 +37,7 @@ export function Footer() {
           </div>
         </div>
         <p className="mt-12 text-xs text-white/40">
-          Donnees issues de l'open data Data-ES (equipements.sports.gouv.fr) · Licence Etalab 2.0.
+          Donnees issues de l'annuaire officiel des entreprises et associations (SIRENE / data.gouv.fr) · clubs sportifs de la Haute-Garonne.
         </p>
       </div>
     </footer>
