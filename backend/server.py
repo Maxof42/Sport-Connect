@@ -220,7 +220,7 @@ async def list_sports():
     pipeline = [
         {"$unwind": "$sports"},
         {"$group": {"_id": "$sports", "count": {"$sum": 1}}},
-        {"$sort": {"count": -1}},
+        {"$sort": {"_id": 1}},
     ]
     rows = await db.clubs.aggregate(pipeline).to_list(200)
     return [{"name": r["_id"], "count": r["count"]} for r in rows if r["_id"]]

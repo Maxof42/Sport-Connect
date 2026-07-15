@@ -19,6 +19,7 @@ export default function Results() {
   const sport = params.get("sport") || "";
   const cp = params.get("postal_code") || "";
   const age = params.get("age") || "";
+  const nameQuery = params.get("q") || "";
 
   const fetchClubs = useCallback(async () => {
     setLoading(true);
@@ -27,14 +28,15 @@ export default function Results() {
       if (sport) q.sport = sport;
       if (cp) q.postal_code = cp;
       if (age) q.age = age;
+      if (nameQuery) q.q = nameQuery;
       const { data } = await api.get("/clubs", { params: q });
       setData(data);
     } finally {
       setLoading(false);
     }
-  }, [sport, cp, age, page]);
+  }, [sport, cp, age, nameQuery, page]);
 
-  useEffect(() => { setPage(1); }, [sport, cp, age]);
+  useEffect(() => { setPage(1); }, [sport, cp, age, nameQuery]);
   useEffect(() => { fetchClubs(); }, [fetchClubs]);
 
   const totalPages = Math.ceil(data.total / 24) || 1;
@@ -44,7 +46,7 @@ export default function Results() {
     <div>
       <div className="border-b border-border bg-secondary/40">
         <div className="mx-auto max-w-7xl px-5 py-6 sm:px-8">
-          <SearchBar variant="results" initial={{ sport, postal_code: cp, age }} />
+          <SearchBar variant="results" initial={{ sport, postal_code: cp, age, q: nameQuery }} />
         </div>
       </div>
 
@@ -55,7 +57,7 @@ export default function Results() {
               {loading ? "Recherche..." : `${data.total} club${data.total > 1 ? "s" : ""} trouve${data.total > 1 ? "s" : ""}`}
             </h1>
             <p className="mt-1 text-sm text-muted-foreground">
-              {sport ? `${sport} · ` : ""}{cp ? `${cp} · ` : ""}Haute-Garonne (31)
+              {nameQuery ? `« ${nameQuery} » · ` : ""}{sport ? `${sport} · ` : ""}{cp ? `${cp} · ` : ""}Haute-Garonne (31)
             </p>
           </div>
           <Button

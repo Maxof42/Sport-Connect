@@ -259,6 +259,8 @@ def main():
     raw = fetch_clubs(rna)
     print(f"Clubs reels geolocalises: {len(raw)}")
     docs = build_docs(raw)
+    docs = [d for d in docs if d["sports"][0] != "Autres"]
+    print(f"Clubs conserves (hors 'Autres'): {len(docs)}")
     seed_demo(docs)
 
     db.clubs.delete_many({})
